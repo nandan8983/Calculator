@@ -1,0 +1,177 @@
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <style>
+        @media only screen and (max-width: 600px) {
+            .cal {
+                margin-top: 100px !important;
+            }
+          }
+        .cal {
+            height: 400px;
+            width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 200px;
+            border: silver solid 2px;
+            padding-top: 10px;
+            background-color: rgb(86, 95, 102);
+            padding-left: 10px;
+            padding-top: 40px;
+            border-radius: 16px;
+            box-shadow: 4px 6px rgb(139, 134, 134);
+            
+        }
+
+        .area {
+            border: 1px solid black;
+            height: 100px;
+            width: 290px;
+            border-radius: 13px;
+            font-size: 30px;
+            text-align: right;
+            pointer-events: none;
+        }
+
+        .btn {
+            height: 38px;
+            width: 65px;
+            margin-left: 6px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+
+
+        }
+
+        .btn:hover {
+            background-color: #6c6c6c
+        }
+
+        .btn:active {
+            background-color: #696969;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+
+        .keys {
+            margin-top: 16px;
+
+        }
+
+        .keyarea {
+            margin-top: 6px;
+        }
+    </style>
+
+    <div id="hd"></div>
+
+    <script type="text/babel">
+        var a = '';
+        var b = '';
+        var num = [];
+        var ans;
+
+        function InputArea() {
+            return <input type="text" className="area" id="view" />
+        }
+        function Bat(x) {
+
+            return <button className="btn" onClick={() => SendNum(x.no)}>{x.no}</button>
+        }
+        function Cbat(x) {
+
+            return <button className="btn" onClick={() => clr()}>{x.no}</button>
+        }
+        function Equ(x) {
+
+            return <button className="btn" onClick={() => EqualTo()}>{x.no}</button>
+        }
+
+        function clr() {
+            a = '';
+            b = '';
+            num = [];
+            ans = "";
+            var pr = document.getElementById('view')
+            pr.value = []
+        }
+        function SendNum(digit) {
+            num.push(digit);
+            console.log(num.length)
+            if (num.length != 1) {
+                a = '';
+                document.getElementById('view').value = a;
+            }
+            for (var i = 0; i < num.length; i++) {
+                a = a + num[i];
+            }
+            document.getElementById('view').value = a;
+        }
+        function EqualTo() {
+            document.getElementById('view').value = '';
+            for (var i = 0; i < num.length; i++) {
+                b += num[i];
+            }
+            console.log(b)
+            ans = eval(b);
+            document.getElementById('view').value = ans;
+            num = [];
+            b = '';
+            a = '';
+            num.push(ans);
+        }
+
+        function App() {
+            return <div className="cal">
+                <InputArea />
+                <div className="keyarea">
+                    <div className="keys">
+
+                        <Cbat no="Clr" />
+                    </div>
+                    <div className="keys">
+                        <Bat no="7" />
+                        <Bat no="8" />
+                        <Bat no="9" />
+                        <Bat no="/" />
+                    </div>
+                    <div className="keys">
+                        <Bat no="4" />
+                        <Bat no="5" />
+                        <Bat no="6" />
+                        <Bat no="*" />
+                    </div>
+                    <div className="keys">
+                        <Bat no="1" />
+                        <Bat no="2" />
+                        <Bat no="3" />
+                        <Bat no="-" />
+                    </div>
+                    <div className="keys">
+                        <Bat no="." />
+                        <Bat no="0" />
+                        <Bat no="+" />
+                        <Equ no="=" />
+                    </div>
+                </div>
+            </div>
+
+        }
+
+
+        var ref = ReactDOM.createRoot(document.querySelector('#hd'))
+        ref.render(<App />)
+
+    </script>
+</body>
+
+</html>
